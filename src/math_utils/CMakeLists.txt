@@ -3,6 +3,7 @@ project(math_utils_project)
 
 set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -O3 -fopenmp")
+find_package(PythonInterp 3.6 REQUIRED)
 find_package(pybind11 REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
 include_directories(${EIGEN3_INCLUDE_DIR})
