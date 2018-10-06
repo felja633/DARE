@@ -27,6 +27,7 @@ F. Järemo Lawin, M. Danelljan, F. S. Khan, P.-E. Forssen, and M. Felsberg, “D
 * matplotlib
 * pybind11
 * pathlib
+* openmp
 * cmake
 * pcl (if you want to use FPPSR)
 
