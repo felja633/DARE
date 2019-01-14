@@ -50,7 +50,7 @@ if __name__ == "__main__":
     features = []
 
     if useColor:
-        # CPPSR not yet working properly
+        # CPPSR
         from src import color_feature_extraction as cfe
         print("initialize color features")
         color_features = cfe.channel_color_coding_hsv(Fs, num_channels)
