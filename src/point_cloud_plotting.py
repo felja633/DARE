@@ -38,7 +38,7 @@ def plotCloudsModel(Vs, colors, X, fignum):
         cind = min(5,i)
         ax.scatter(Vv[0,:], Vv[1,:], Vv[2,:], c=color_list[cind], marker='o', s=9)
 
-    ax.scatter(X[0,:], X[1,:], X[2,:], c='k', marker='o', s=80)
+    ax.scatter(X[0,:], X[1,:], X[2,:], c='k', marker='o', s=100)
 
     ax.set_xlabel('X')
     ax.set_ylabel('Y')

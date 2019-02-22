@@ -1,6 +1,6 @@
-###############################
-# This demo script will run density adaptive point set registration of multiple point sets.  
-###############################
+#############################################################################################
+# This demo script will run density adaptive point set registration of multiple point sets. # 
+#############################################################################################
 
 import numpy as np
 from src import psreg
@@ -11,23 +11,30 @@ from src import data_loader as dl
 
 # Main
 if __name__ == "__main__":
-    testLidar = True  
-    Vs = []
-    Fs = []
-    if testLidar:
-        # Run demo on VPS outdoor datastet
-        Vs, Fs = dl.load_demo_data("data/vps_out")
+    testLidar = True
+    useFPS = False
 
-    else:
-        # Run demo on indoor tof datastet
-        Vs, Fs = dl.load_demo_data("data/tofData")
-        Vs, Fs = zip(*[rs.random_sampling([V,F], 9000) for V,F in zip(Vs, Fs)])    
-    
     # Set this flag to use density adaptation
     useDARE = True
     # Set these flags to use color and/or geometrical features
     useColor = False 
     usefpfh = False  #not verified
+
+    Vs = []
+    Fs = []
+    if testLidar:
+        # Run demo on VPS outdoor datastet
+        Vs, Fs = dl.load_demo_data("data/vps_out")
+        Vs, Fs = zip(*[rs.random_sampling([V,F], 10000) for V,F in zip(Vs, Fs)]) 
+        if useFPS:
+            Vs, inds = zip(*[rs.farthest_point_sampling(V, 100) for V in Vs])
+            Fs = [F[:,ind] for F, ind in zip(Fs,inds)]
+    else:
+        # Run demo on indoor tof datastet
+        Vs, Fs = dl.load_demo_data("data/tofData")
+        Vs, Fs = zip(*[rs.random_sampling([V,F], 10000) for V,F in zip(Vs, Fs)])    
+    
+
 
     # Model parameters
     K = 300
@@ -50,7 +57,7 @@ if __name__ == "__main__":
     features = []
 
     if useColor:
-        # CPPSR not yet working properly
+        # CPPSR 
         from src import color_feature_extraction as cfe
         print("initialize color features")
         color_features = cfe.channel_color_coding_hsv(Fs, num_channels)
@@ -77,9 +84,10 @@ if __name__ == "__main__":
     else:
         owf = observation_weights.default_uniform
 
+    point_cloud_plotting.plotClouds(Vs, Fs, 52)
     # Create method object
-    method = psreg.PSREG(beta, epsilon, pk, X, Q, fdistr,debug=True)
+    method = psreg.PSREG(beta, epsilon, pk, X, Q, fdistr,debug=False)
     # Register point sets
     print("register point sets...")
-    TVs = method.register_points(Vs, features, num_iters, Ps, show_progress=True, observation_weight_function=owf, ow_args=num_neighbors)
-
+    TVs, X = method.register_points(Vs, features, num_iters, Ps, show_progress=True, observation_weight_function=owf, ow_args=num_neighbors)
+    point_cloud_plotting.plotCloudsModel(TVs, Fs, X, 56)
