@@ -160,7 +160,7 @@ class PSREG:
 
         if self.debug:
             point_cloud_plotting.plotCloudsModel(TVs, X, 56)
-        return TVs
+        return TVs, X
 
     # (uniform priors so far...)
     def _iterate(self, TVs, X, pk, Q, feature_distr, Vs, features, ds, ows, current_iter):
