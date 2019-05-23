@@ -94,7 +94,6 @@ class PSREG:
                  feature_distr=None,
                  debug=False,
                  use_kdtree=False,
-                 kd_rate=0.1,
                  fix_cluster_pos_iter=2):
         """
         :param beta:
@@ -111,7 +110,6 @@ class PSREG:
         self.cluster_precisions = cluster_precisions
         self.feature_distr = feature_distr
         self.debug = debug
-        self.kd_rate = kd_rate
         self.use_kdtree = use_kdtree
         self.fix_cluster_pos_iter = fix_cluster_pos_iter
 
@@ -259,6 +257,7 @@ class PSREG:
 
                 fd = np.multiply(fd, ac_sum)
                 fd = fd / (np.sum(fd, axis=0) + 0.0000001)
+                feature_distr[j] = fd
             
         return a_s, Ls, Rs, ts, TVs, X, Q, den, feature_distr, ds2
 
