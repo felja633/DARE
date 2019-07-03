@@ -135,9 +135,9 @@ class PSREG:
 
         TVs = [R @ V + t[..., np.newaxis] for V, (R, t) in zip(Vs, Ps)]
         
-        for ow in observation_weights:
-            m = np.sum(ow)/ow.shape[0]
-            ow[np.where(ow > m * ow_reg_factor)] = m * ow_reg_factor
+        for i in range(len(observation_weights)):
+            m = np.sum(observation_weights[i])/observation_weights[i].shape[0]
+            observation_weights[i][np.where(observation_weights[i] > m * ow_reg_factor)] = m * ow_reg_factor
 
         ds = [sqe(TV, X) for TV in TVs]
         t_tot = time()
