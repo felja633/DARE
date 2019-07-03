@@ -25,16 +25,13 @@ F. Järemo Lawin, M. Danelljan, F. S. Khan, P.-E. Forssen, and M. Felsberg, “D
 * numpy
 * scipy
 * matplotlib
-* pybind11
 * pathlib
-* openmp
 * cmake
 * pcl (if you want to use FPPSR)
 
 ## Installation
 Make sure that the above dependencies are installed. 
-
-* Build the pybind module in src/math_utils at src/math_utils/build. 
+ 
 * To be able to run FPPSR, you need to build the pybind module in src/pcl_utils at src/pcl_utils/build. 
 
 You may use the shell script build_pybind_modules. The code has been tested in Ubuntu 16.04 and 18.04.

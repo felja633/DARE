@@ -7,8 +7,6 @@ from numpy.linalg import svd, det
 from time import time
 from . import observation_weights
 from . import point_cloud_plotting
-from scipy.spatial import cKDTree
-from .math_utils.build import math_utils
 
 def list_prod(X):
     if len(X)==1:
@@ -23,9 +21,6 @@ def sqe(Y, X):
     s = np.sum(d * d, axis=2)
     
     return s
-
-def sqe2(Y, X):
-    return math_utils.mat_sqe(Y.transpose(), X.transpose())
 
 def get_default_cluster_priors(num_clusters, gamma):
     pk = 1 / (num_clusters + gamma) * np.ones((num_clusters, 1), dtype=np.float32)
@@ -144,7 +139,7 @@ class PSREG:
             m = np.sum(ow)/ow.shape[0]
             ow[np.where(ow > m * ow_reg_factor)] = m * ow_reg_factor
 
-        ds = [sqe2(TV, X) for TV in TVs]
+        ds = [sqe(TV, X) for TV in TVs]
         t_tot = time()
         for i in range(num_iters):
             t0 = time()
@@ -180,7 +175,7 @@ class PSREG:
         for i, (TV, V, d, ow) in enumerate(zip(TVs, Vs, ds, ows)):
 
             # Posteriors
-            a = pk * np.power(Qt, 1.5) * math_utils.mat_exp(-0.5 * Qt * d)
+            a = pk * np.power(Qt, 1.5) * np.exp(-0.5 * Qt * d)
 
             ap[i] = a.copy()
 
@@ -237,7 +232,7 @@ class PSREG:
             X = X / den
         # Update Q
         
-        ds2 = [sqe2(TV, X) for TV in TVs]
+        ds2 = [sqe(TV, X) for TV in TVs]
         wn = np.sum(a_s[0] * ds2[0], 0, keepdims=True)
 
         for distances, a in zip(ds2[1:], a_s[1:]):
