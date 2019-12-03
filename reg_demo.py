@@ -17,7 +17,7 @@ if __name__ == "__main__":
     # Set this flag to use density adaptation
     useDARE = True
     # Set these flags to use color and/or geometrical features
-    useColor = True 
+    useColor = False 
     usefpfh = False  #not verified
 
     Vs = []
