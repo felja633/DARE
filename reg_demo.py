@@ -39,7 +39,7 @@ if __name__ == "__main__":
     # Model parameters
     K = 300
     num_iters = 50
-    gamma = float(0.1)
+    gamma = float(0.005)
     epsilon = float(1e-5)
     num_channels = 4
     num_words = 10
