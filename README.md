@@ -4,6 +4,8 @@ This repository contains a python implementation of the Density Adaptive Point S
 
 The script reg_demo.py runs DARE on a subsampled version of the vps outdoor dataset. 
 
+This method is also included in <https://github.com/felja633/RLLReg> as a pytorch implementation.
+
 ## Publication
 A detailed description of the DARE method can be found in the CVPR 2018 paper:
 
