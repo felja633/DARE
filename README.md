@@ -44,7 +44,7 @@ The full datasets used in the paper can be found at <http://www.hdrv.org/vps/> a
 ## Contact
 Felix Järemo Lawin
 
-email: felix.jaremo-lawin@liu.se
+email: felix.lawin@gmail.com
 
 ## References
 JRMPC:
